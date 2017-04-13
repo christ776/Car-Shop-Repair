@@ -5,9 +5,9 @@ module.exports = {
   devtool: 'source-map',
   entry: {
     'app': [
-      'react-hot-loader/patch',
       'babel-polyfill',
-      './src/index.js'
+      'react-hot-loader/patch',
+      './src/index'
     ]
   },
   output: {
