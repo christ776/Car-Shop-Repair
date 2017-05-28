@@ -12,7 +12,8 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, './dist'),
-    filename: '[name].js'
+    filename: '[name].js',
+    devtoolModuleFilenameTemplate: '../[resource-path]'
   },
   module: {
     rules: [

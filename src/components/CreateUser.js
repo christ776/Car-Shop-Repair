@@ -7,6 +7,26 @@ class CreateUser extends Component {
     console.log('Creating new user');
   }
 
+  handleClearForm(e) {  
+    e.preventDefault();
+    this.setState({
+      password: '',
+      email : ''
+    });
+  }
+
+  handleFormSubmit(e) {  
+    e.preventDefault();
+
+    const formPayload = {
+      ownerName: this.state.email,
+      selectedPets: this.state.password,
+    };
+
+    console.log('Send this in a POST request:', formPayload);
+    this.handleClearForm(e);
+}
+
   render() {
 
     return (
