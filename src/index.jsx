@@ -1,12 +1,17 @@
-import React, {Component} from 'react'; 
+import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 
-ReactDOM.render(
-  <App />,document.getElementById('root')
-)
+const render = (component) => {
+  ReactDOM.render(
+    React.createElement(component), document.getElementById('root'),
+   );
+};
+
+render(App);
 
 if (module.hot) {
-  module.hot.accept('./App', () => { render(App
-    ) })
+  module.hot.accept('./App', () => {
+    render(App);
+  });
 }

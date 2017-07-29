@@ -83,14 +83,14 @@ class LoginForm extends Component {
           <form className="login-form" onSubmit={this.handleFormSubmit}>
             <SingleInput
               inputType={'text'}
-              title={'email'}
+              content={'email'}
               name={'email'}
               controlFunc={this.handleEmailChange}
               placeholder={'Type first and last name here'}
             />
             <SingleInput
               inputType={'password'}
-              title={'password'}
+              content={'password'}
               name={'password'}
               controlFunc={this.handlePwdChange}
               placeholder={''}

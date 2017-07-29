@@ -2,7 +2,7 @@ import React from 'react';
 
 const SingleInput = props => (
   <div className="form-group">
-    <label className="form-label" htmlFor="singleInput">{props.title} </label>
+    <label className="form-label" htmlFor="singleInput">{props.name} </label>
     <input
       className="form-input" id="singleInput"
       name={props.name}
@@ -16,7 +16,6 @@ const SingleInput = props => (
 
 SingleInput.propTypes = {
   inputType: React.PropTypes.oneOf(['text', 'password']).isRequired,
-  title: React.PropTypes.string.isRequired,
   name: React.PropTypes.string.isRequired,
   controlFunc: React.PropTypes.func.isRequired,
   content: React.PropTypes.oneOfType([
