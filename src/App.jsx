@@ -1,4 +1,3 @@
-// @ts-check
 import React, { Component } from 'react';
 import {
   BrowserRouter,
@@ -12,7 +11,6 @@ import Home from './components/Home';
 import NotFound from './components/404';
 
 export default class App extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -20,11 +18,11 @@ export default class App extends Component {
     };
   }
 
-  componentDidMount() {
+  componentWillMount() {
     const userToken = localStorage.getItem('user');
     if (userToken) {
       this.setState({
-       user: JSON.parse(userToken),
+        user: JSON.parse(userToken),
       });
     }
   }
@@ -39,19 +37,20 @@ export default class App extends Component {
             <Route path="/login" component={LoginForm} />
             <Route path="/registerUser" component={CreateUser} />
             <Route
-              exact path="/" render={() => (
+              exact
+              path="/"
+              render={() => (
 
-                    user ?
-                      <Home user={user} />
-                    : <Redirect to="/login" />
+                user ?
+                  <Home user={user} />
+                  : <Redirect to="/login" />
 
-                )}
-                />
+              )}
+            />
             <Route path="*" component={NotFound} />
           </div>
         </BrowserRouter>
       </AppContainer>
     );
   }
-
 }

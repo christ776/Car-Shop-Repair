@@ -1,10 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const SingleInput = props => (
   <div className="form-group">
     <label className="form-label" htmlFor="singleInput">{props.name} </label>
     <input
-      className="form-input" id="singleInput"
+      className="form-input"
+      id="singleInput"
       name={props.name}
       type={props.inputType}
       value={props.content}
@@ -15,14 +17,14 @@ const SingleInput = props => (
 );
 
 SingleInput.propTypes = {
-  inputType: React.PropTypes.oneOf(['text', 'password']).isRequired,
-  name: React.PropTypes.string.isRequired,
-  controlFunc: React.PropTypes.func.isRequired,
-  content: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.number,
+  inputType: PropTypes.oneOf(['text', 'password']).isRequired,
+  name: PropTypes.string.isRequired,
+  controlFunc: PropTypes.func.isRequired,
+  content: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
   ]).isRequired,
-  placeholder: React.PropTypes.string,
+  placeholder: PropTypes.string,
 };
 
 SingleInput.defaultProps = {

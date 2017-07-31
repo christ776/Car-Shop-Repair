@@ -7,5 +7,8 @@ module.exports = {
     ],
     "env": {
     "browser": true
-  }
+  },
+"rules":{
+  "arrow-body-style": [2, "as-needed"]
+    }
 };

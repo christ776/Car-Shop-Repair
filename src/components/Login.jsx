@@ -1,13 +1,14 @@
 // @ts-check
 import React, { Component } from 'react';
-import SingleInput from './SingleInput';
-import './../../styles/main.scss';
 import {
   BrowserRouter as Router,
   Route,
   Link,
   Redirect,
   withRouter } from 'react-router-dom';
+
+import SingleInput from './SingleInput';
+import './../../styles/main.scss';
 
 class LoginForm extends Component {
   constructor(props) {
@@ -38,7 +39,7 @@ class LoginForm extends Component {
       password: '',
     });
   }
-  
+
   handleFormSubmit(e) {
     e.preventDefault();
     this.login();
