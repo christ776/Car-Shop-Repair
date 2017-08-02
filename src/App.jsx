@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import {
-  BrowserRouter,
+  HashRouter as Router,
   Route,
   Redirect,
+  Switch,
 } from 'react-router-dom';
 import { AppContainer } from 'react-hot-loader';
 import LoginForm from './components/Login';
@@ -32,8 +33,8 @@ export default class App extends Component {
 
     return (
       <AppContainer>
-        <BrowserRouter>
-          <div>
+        <Router>
+          <Switch>
             <Route path="/login" component={LoginForm} />
             <Route path="/registerUser" component={CreateUser} />
             <Route
@@ -47,9 +48,9 @@ export default class App extends Component {
 
               )}
             />
-            <Route path="*" component={NotFound} />
-          </div>
-        </BrowserRouter>
+            <Route component={NotFound} />
+          </Switch>
+        </Router>
       </AppContainer>
     );
   }

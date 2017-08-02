@@ -5,7 +5,7 @@ import App from './App';
 const render = (component) => {
   ReactDOM.render(
     React.createElement(component), document.getElementById('root'),
-   );
+  );
 };
 
 render(App);
