@@ -29,7 +29,7 @@ export default class App extends Component {
   }
 
   render() {
-    const { user } = this.state;
+    const { user } = this.props;
 
     return (
       <AppContainer>

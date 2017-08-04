@@ -85,20 +85,18 @@ class LoginForm extends Component {
             <SingleInput
               inputType={'text'}
               content={'email'}
-              name={'email'}
+              name={'Email'}
               controlFunc={this.handleEmailChange}
-              placeholder={'Type first and last name here'}
             />
             <SingleInput
               inputType={'password'}
               content={'password'}
-              name={'password'}
+              name={'Password'}
               controlFunc={this.handlePwdChange}
-              placeholder={''}
             />
             <button type="submit">login</button>
             <p className="message">Not registered?
-              <Link to="/registerUser">Create an account</Link></p>
+              <Link to="/registerUser"> Create an account</Link></p>
           </form>
         </div>
       </div>

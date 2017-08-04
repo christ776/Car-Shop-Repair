@@ -26,11 +26,27 @@ module.exports = {
         include: path.join(__dirname, 'src'),
       },
       { test: /\.css$/,
-        exclude: /node_modules/,
         use: [
           'style-loader',
           'css-loader',
+          'resolve-url-loader',
         ],
+      },
+      {
+        test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
+        loader: 'url-loader?limit=10000&mimetype=application/font-woff',
+      },
+      {
+        test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
+        loader: 'file-loader',
+      },
+      {
+        test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+        use: 'url-loader?limit=10000&mimetype=image/svg+xml',
+      },
+      {
+        test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
+        loader: 'url-loader?limit=10000&mimetype=application/octet-stream',
       },
       { test: /\.(sass|scss)$/,
         use: [
