@@ -1,49 +1,42 @@
 import React, { Component } from 'react';
-import { Checkbox,
-  FormGroup,
-  ControlLabel,
-  FormControl,
-  Col,
-  Form,
-  Button } from 'react-bootstrap';
-
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap/dist/css/bootstrap-theme.css';
+import Col from 'react-bootstrap/Col';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
 const formInstance = (
   <div className="container">
     <Form horizontal>
-      <FormGroup controlId="formHorizontalEmail">
-        <Col componentClass={ControlLabel} sm={2}>
+      <Form.Group controlId="formHorizontalEmail">
+        <Col sm={2}>
         Email
         </Col>
         <Col sm={10}>
-          <FormControl type="email" placeholder="Email" />
+          <Form.Control type="email" placeholder="Email" />
         </Col>
-      </FormGroup>
+      </Form.Group>
 
-      <FormGroup controlId="formHorizontalPassword">
-        <Col componentClass={ControlLabel} sm={2}>
+      <Form.Group controlId="formHorizontalPassword">
+        <Col sm={2}>
         Password
         </Col>
         <Col sm={10}>
-          <FormControl type="password" placeholder="Password" />
+          <Form.Control type="password" placeholder="Password" />
         </Col>
-      </FormGroup>
+      </Form.Group>
 
-      <FormGroup>
+      <Form.Group>
         <Col smOffset={2} sm={10}>
-          <Checkbox>Remember me</Checkbox>
+          <Form.Check type="checkbox" label="remember me">Remember me</Form.Check>
         </Col>
-      </FormGroup>
+      </Form.Group>
 
-      <FormGroup>
+      <Form.Group>
         <Col smOffset={2} sm={10}>
           <Button type="submit">
           Sign in
           </Button>
         </Col>
-      </FormGroup>
+      </Form.Group>
     </Form>
   </div>
 );

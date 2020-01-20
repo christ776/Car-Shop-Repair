@@ -1,60 +1,45 @@
-const webpack = require('webpack');
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  devtool: 'source-map',
-  entry: {
-    app: [
-      'babel-polyfill',
-      'react-hot-loader/patch',
-      './src/index.jsx',
-    ],
-  },
+  mode: 'development',
+  devtool: 'eval-source-map',
+  entry: path.resolve(__dirname, './src/index.jsx'),
   output: {
-    path: path.resolve(__dirname, './dist'),
-    filename: '[name].js',
-    devtoolModuleFilenameTemplate: '../[resource-path]',
+    publicPath: '/',
+    filename: '[name].[chunkhash].js',
+    chunkFilename: '[name].[chunkhash].js',
+    path: path.resolve(__dirname, 'dist'),
   },
+  module: { rules: [
+    { test: /\.css$/, use: [{ loader: 'css-loader' }] },
+    { test: /.scss$/,
+      use: [
+        {
+          loader: 'style-loader', // creates style nodes from JS strings
+        },
+        {
+          loader: 'css-loader', // translates CSS into CommonJS
+        },
+        {
+          loader: 'sass-loader', // compiles Sass to CSS
+        },
+      ],
+    },
+    { test: /\.(graphql|gql)$/, loader: 'graphql-tag/loader' },
+    { test: /\.jsx?$/, use: [{ loader: 'babel-loader' }] },
+    {
+      test: /\.(jpe?g|png|gif|svg|woff2?|ttf|eot)$/i,
+      use: [{ loader: 'file-loader', options: { name: '[name][hash].[ext]' } }],
+    },
+  ] },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './index.html'
+    })
+  ],
   resolve: {
-    extensions: ['.js', '.jsx', '.json'],
-  },
-  module: {
-    rules: [
-      { test: /\.(js|jsx)$/,
-        exclude: [/node_modules/, /styles/],
-        loader: 'babel-loader',
-        include: path.join(__dirname, 'src'),
-      },
-      { test: /\.css$/,
-        use: [
-          'style-loader',
-          'css-loader',
-          'resolve-url-loader',
-        ],
-      },
-      {
-        test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'url-loader?limit=10000&mimetype=application/font-woff',
-      },
-      {
-        test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'file-loader',
-      },
-      {
-        test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-        use: 'url-loader?limit=10000&mimetype=image/svg+xml',
-      },
-      {
-        test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'url-loader?limit=10000&mimetype=application/octet-stream',
-      },
-      { test: /\.(sass|scss)$/,
-        use: [
-          'style-loader',
-          'css-loader',
-          'sass-loader',
-        ],
-      },
-    ],
-  },
-};
+    extensions: ['.js', '.jsx']
+  }
+}
+;

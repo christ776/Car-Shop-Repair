@@ -5,13 +5,12 @@ import {
   Redirect,
   Switch,
 } from 'react-router-dom';
-import { AppContainer } from 'react-hot-loader';
 import LoginForm from './components/Login';
 import CreateUser from './components/CreateUser';
 import Home from './components/Home';
 import NotFound from './components/404';
 
-export default class App extends Component {
+class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -32,7 +31,7 @@ export default class App extends Component {
     const { user } = this.props;
 
     return (
-      <AppContainer>
+      <>
         <Router>
           <Switch>
             <Route path="/login" component={LoginForm} />
@@ -51,7 +50,9 @@ export default class App extends Component {
             <Route component={NotFound} />
           </Switch>
         </Router>
-      </AppContainer>
+      </>
     );
   }
 }
+
+export default App;
