@@ -1,14 +1,12 @@
 // @ts-check
 import React, { Component } from 'react';
 import {
-  BrowserRouter as Router,
-  Route,
   Link,
   Redirect,
-  withRouter } from 'react-router-dom';
+} from 'react-router-dom';
 
 import SingleInput from './SingleInput';
-import './../../styles/main.scss';
+import '../../styles/main.scss';
 
 class LoginForm extends Component {
   constructor(props) {
@@ -17,6 +15,7 @@ class LoginForm extends Component {
       email: '',
       password: '',
       userIsLoggedIn: false,
+      signupFailure: false,
     };
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleClearForm = this.handleClearForm.bind(this);
@@ -46,6 +45,8 @@ class LoginForm extends Component {
   }
 
   login() {
+    const { email, password } = this.state;
+
     const request = new Request('http://localhost:3000/api/login', {
       method: 'POST',
       headers: new Headers({
@@ -53,24 +54,29 @@ class LoginForm extends Component {
         'Content-Type': 'application/json',
       }),
       body: JSON.stringify({
-        email: this.state.email,
-        password: this.state.password }),
+        email,
+        password,
+      }),
     });
 
     fetch(request).then((response) => {
       if (response.status >= 400) {
+        this.setState({
+          signupFailure: 'Bad response from server',
+        });
         throw new Error('Bad response from server');
       }
       return response.json();
     })
       .then(({ token, user }) => {
+        console.log('Set User token: ', token);
         this.setState({ userIsLoggedIn: true, user });
         localStorage.setItem('user', JSON.stringify(user));
       });
   }
 
   render() {
-    const { userIsLoggedIn } = this.state;
+    const { userIsLoggedIn, signupFailure } = this.state;
     if (userIsLoggedIn) {
       return (
         <Redirect to="/" />
@@ -80,23 +86,31 @@ class LoginForm extends Component {
     return (
 
       <div className="login-page">
+        {
+          signupFailure && (
+            <div className="alert alert-danger" role="alert">
+              {signupFailure}
+            </div>
+          )
+        }
         <div className="form">
           <form className="login-form" onSubmit={this.handleFormSubmit}>
             <SingleInput
-              inputType={'text'}
-              content={'email'}
-              name={'Email'}
+              inputType="text"
+              placeholder="email"
+              name="Email"
               controlFunc={this.handleEmailChange}
             />
             <SingleInput
-              inputType={'password'}
-              content={'password'}
-              name={'Password'}
+              inputType="password"
+              name="Password"
               controlFunc={this.handlePwdChange}
             />
             <button type="submit">login</button>
-            <p className="message">Not registered?
-              <Link to="/registerUser"> Create an account</Link></p>
+            <p className="message">
+Not registered?
+              <Link to="/registerUser"> Create an account</Link>
+            </p>
           </form>
         </div>
       </div>

@@ -1,17 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const SingleInput = props => (
+const SingleInput = ({
+  name, inputType, content, controlFunc, placeholder,
+}) => (
   <div className="form-group">
-    <label className="form-label" htmlFor="singleInput">{props.name} </label>
+    <label
+      className="form-label"
+      htmlFor="singleInput"
+    >
+      {name}
+    </label>
     <input
       className="form-input"
       id="singleInput"
-      name={props.name}
-      type={props.inputType}
-      value={props.content}
-      onChange={props.controlFunc}
-      placeholder={props.placeholder}
+      name={name}
+      type={inputType}
+      value={content}
+      onChange={controlFunc}
+      placeholder={placeholder}
     />
   </div>
 );

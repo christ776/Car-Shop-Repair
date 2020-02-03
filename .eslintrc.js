@@ -10,5 +10,6 @@ module.exports = {
   },
 "rules":{
   "arrow-body-style": [2, "as-needed"]
-    }
+    },
+  "parser": "babel-eslint"
 };

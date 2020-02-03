@@ -11,35 +11,37 @@ module.exports = {
     chunkFilename: '[name].[chunkhash].js',
     path: path.resolve(__dirname, 'dist'),
   },
-  module: { rules: [
-    { test: /\.css$/, use: [{ loader: 'css-loader' }] },
-    { test: /.scss$/,
-      use: [
-        {
-          loader: 'style-loader', // creates style nodes from JS strings
-        },
-        {
-          loader: 'css-loader', // translates CSS into CommonJS
-        },
-        {
-          loader: 'sass-loader', // compiles Sass to CSS
-        },
-      ],
-    },
-    { test: /\.(graphql|gql)$/, loader: 'graphql-tag/loader' },
-    { test: /\.jsx?$/, use: [{ loader: 'babel-loader' }] },
-    {
-      test: /\.(jpe?g|png|gif|svg|woff2?|ttf|eot)$/i,
-      use: [{ loader: 'file-loader', options: { name: '[name][hash].[ext]' } }],
-    },
-  ] },
+  module: {
+    rules: [
+      { test: /\.css$/, use: [{ loader: 'css-loader' }] },
+      {
+        test: /.scss$/,
+        use: [
+          {
+            loader: 'style-loader', // creates style nodes from JS strings
+          },
+          {
+            loader: 'css-loader', // translates CSS into CommonJS
+          },
+          {
+            loader: 'sass-loader', // compiles Sass to CSS
+          },
+        ],
+      },
+      { test: /\.(graphql|gql)$/, loader: 'graphql-tag/loader' },
+      { test: /\.jsx?$/, use: [{ loader: 'babel-loader' }] },
+      {
+        test: /\.(jpe?g|png|gif|svg|woff2?|ttf|eot)$/i,
+        use: [{ loader: 'file-loader', options: { name: '[name][hash].[ext]' } }],
+      },
+    ],
+  },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './index.html'
-    })
+      template: './index.html',
+    }),
   ],
   resolve: {
-    extensions: ['.js', '.jsx']
-  }
-}
-;
+    extensions: ['.js', '.jsx'],
+  },
+};

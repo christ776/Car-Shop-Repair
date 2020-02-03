@@ -1,73 +1,37 @@
 import React, { Component } from 'react';
-import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
-const formInstance = (
-  <div className="container">
-    <Form horizontal>
-      <Form.Group controlId="formHorizontalEmail">
-        <Col sm={2}>
-        Email
-        </Col>
-        <Col sm={10}>
-          <Form.Control type="email" placeholder="Email" />
-        </Col>
-      </Form.Group>
-
-      <Form.Group controlId="formHorizontalPassword">
-        <Col sm={2}>
-        Password
-        </Col>
-        <Col sm={10}>
-          <Form.Control type="password" placeholder="Password" />
-        </Col>
-      </Form.Group>
-
-      <Form.Group>
-        <Col smOffset={2} sm={10}>
-          <Form.Check type="checkbox" label="remember me">Remember me</Form.Check>
-        </Col>
-      </Form.Group>
-
-      <Form.Group>
-        <Col smOffset={2} sm={10}>
-          <Button type="submit">
-          Sign in
-          </Button>
-        </Col>
-      </Form.Group>
-    </Form>
-  </div>
-);
+import '../../styles/main.scss';
 
 class CreateUser extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: {
-        fullname: '',
-        email: '',
-        password: '',
-      },
-      userToken: undefined,
+      signupFailure: undefined,
+      fullname: undefined,
+      email: undefined,
+      password: undefined,
     };
-    this.handleFormSubmit = this.handleFormSubmit.bind(this);
-    this.handleClearForm = this.handleClearForm.bind(this);
-    this.handleEmailChange = this.handleEmailChange.bind(this);
-    this.handlePwdChange = this.handlePwdChange.bind(this);
   }
 
-  handleFullNameChange(e) {
-    this.setState({ ownerName: e.target.value });
+  handleFullNameChange = (e) => {
+    this.setState({ fullname: e.target.value });
   }
 
-  handleEmailChange(e) {
+  handleEmailChange = (e) => {
     this.setState({ email: e.target.value });
   }
 
-  handlePwdChange(e) {
+  handlePwdChange = (e) => {
     this.setState({ password: e.target.value });
+  }
+
+  handleFormSubmit = (e) => {
+    e.preventDefault();
+    const { fullname, email, password } = this.state;
+    this.createUser({ fullname, email, password });
+    // this.handleClearForm(e);
   }
 
   handleClearForm(e) {
@@ -78,34 +42,29 @@ class CreateUser extends Component {
     });
   }
 
-  handleFormSubmit(e) {
-    e.preventDefault();
-
-    const formPayload = {
-      fullname: this.state.fullname,
-      email: this.state.email,
-      password: this.state.password,
-    };
-
-    this.createUser(formPayload);
-    this.handleClearForm(e);
-  }
-
-  createUser(formPayload) {
-    const request = new Request('http://localhost:3000/api/createUser', {
+  /**
+   *
+   * @param {*} param0
+   */
+  createUser({ fullname, email, password }) {
+    const request = new Request('http://localhost:3000/api/signup', {
       method: 'POST',
       headers: new Headers({
         Accept: 'application/json, text/plain, */*',
         'Content-Type': 'application/json',
       }),
       body: JSON.stringify({
-        fullname: formPayload.fullname,
-        email: formPayload.email,
-        password: formPayload.password }),
+        fullname,
+        email,
+        password,
+      }),
     });
 
     fetch(request).then((response) => {
       if (response.status >= 400) {
+        this.setState({
+          signupFailure: 'Bad response from server',
+        });
         throw new Error('Bad response from server');
       }
       return response.json();
@@ -118,8 +77,39 @@ class CreateUser extends Component {
   }
 
   render() {
+    const { signupFailure } = this.state;
     return (
-      formInstance
+      <div className="login-page">
+        <h3>Sign Up with us</h3>
+        {
+          signupFailure && (
+            <div className="alert alert-danger" role="alert">
+              This is a danger alert—check it out!
+            </div>
+          )
+        }
+        <Form onSubmit={this.handleFormSubmit} className="form">
+          <Form.Group controlId="formBasicFullName">
+            <Form.Label>Full Name</Form.Label>
+            <Form.Control type="text" placeholder="Full name" onChange={this.handleFullNameChange} />
+          </Form.Group>
+          <Form.Group controlId="formBasicEmail">
+            <Form.Label>Email address</Form.Label>
+            <Form.Control type="email" placeholder="Enter email" onChange={this.handleEmailChange} />
+            <Form.Text className="text-muted">
+            We'll never share your email with anyone else.
+            </Form.Text>
+          </Form.Group>
+
+          <Form.Group controlId="formBasicPassword">
+            <Form.Label>Password</Form.Label>
+            <Form.Control type="password" placeholder="Password" onChange={this.handlePwdChange} />
+          </Form.Group>
+          <Button variant="primary" type="submit">
+      Submit
+          </Button>
+        </Form>
+      </div>
     );
   }
 }
