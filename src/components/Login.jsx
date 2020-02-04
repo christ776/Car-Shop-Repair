@@ -68,10 +68,10 @@ class LoginForm extends Component {
       }
       return response.json();
     })
-      .then(({ token, user }) => {
+      .then(({ token }) => {
         console.log('Set User token: ', token);
-        this.setState({ userIsLoggedIn: true, user });
-        localStorage.setItem('user', JSON.stringify(user));
+        this.setState({ userIsLoggedIn: true });
+        localStorage.setItem('userToken', token);
       });
   }
 

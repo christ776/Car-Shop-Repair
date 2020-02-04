@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-
+import { Redirect } from 'react-router-dom';
 import '../../styles/main.scss';
 
 class CreateUser extends Component {
@@ -69,11 +69,7 @@ class CreateUser extends Component {
       }
       return response.json();
     })
-      .then(({ token, user }) => {
-        localStorage.setItem('user', JSON.stringify(user));
-        localStorage.setItem('userToken', token);
-        this.setState(user);
-      });
+      .then(() => <Redirect to="/login" />);
   }
 
   render() {
