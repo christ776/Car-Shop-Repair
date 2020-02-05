@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  HashRouter as Router,
+  BrowserRouter as Router,
   Route,
   Redirect,
   Switch,
@@ -18,7 +18,7 @@ class App extends Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const userToken = localStorage.getItem('user');
     if (userToken) {
       this.setState({
@@ -35,17 +35,11 @@ class App extends Component {
         <Router>
           <Switch>
             <Route path="/login" component={LoginForm} />
-            <Route path="/registerUser" component={CreateUser} />
+            <Route path="/signup" component={CreateUser} />
             <Route
               exact
               path="/"
-              render={() => (
-
-                user ?
-                  <Home user={user} />
-                  : <Redirect to="/login" />
-
-              )}
+              render={() => (user !== undefined ? <Home user={user} /> : <Redirect to="/login" />)}
             />
             <Route component={NotFound} />
           </Switch>

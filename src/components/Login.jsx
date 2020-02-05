@@ -6,7 +6,7 @@ import {
 } from 'react-router-dom';
 
 import SingleInput from './SingleInput';
-import '../../styles/main.scss';
+// import '../../styles/main.scss';
 
 class LoginForm extends Component {
   constructor(props) {
@@ -17,21 +17,17 @@ class LoginForm extends Component {
       userIsLoggedIn: false,
       signupFailure: false,
     };
-    this.handleFormSubmit = this.handleFormSubmit.bind(this);
-    this.handleClearForm = this.handleClearForm.bind(this);
-    this.handleEmailChange = this.handleEmailChange.bind(this);
-    this.handlePwdChange = this.handlePwdChange.bind(this);
   }
 
-  handleEmailChange(e) {
+  handleEmailChange = (e) => {
     this.setState({ email: e.target.value });
   }
 
-  handlePwdChange(e) {
+  handlePwdChange = (e) => {
     this.setState({ password: e.target.value });
   }
 
-  handleClearForm(e) {
+  handleClearForm = (e) => {
     e.preventDefault();
     this.setState({
       email: '',
@@ -39,7 +35,7 @@ class LoginForm extends Component {
     });
   }
 
-  handleFormSubmit(e) {
+  handleFormSubmit = (e) => {
     e.preventDefault();
     this.login();
   }
@@ -93,6 +89,7 @@ class LoginForm extends Component {
             </div>
           )
         }
+        <h3>Log In</h3>
         <div className="form">
           <form className="login-form" onSubmit={this.handleFormSubmit}>
             <SingleInput

@@ -7,13 +7,13 @@ const SingleInput = ({
   <div className="form-group">
     <label
       className="form-label"
-      htmlFor="singleInput"
+      htmlFor={`singleInput_${name}`}
     >
       {name}
     </label>
     <input
       className="form-input"
-      id="singleInput"
+      id={`singleInput_${name}`}
       name={name}
       type={inputType}
       value={content}
@@ -30,12 +30,13 @@ SingleInput.propTypes = {
   content: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
-  ]).isRequired,
+  ]),
   placeholder: PropTypes.string,
 };
 
 SingleInput.defaultProps = {
   placeholder: '',
+  content: '',
 };
 
 export default SingleInput;
