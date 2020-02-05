@@ -5,8 +5,8 @@ import {
   Redirect,
 } from 'react-router-dom';
 
-import SingleInput from './SingleInput';
-// import '../../styles/main.scss';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
 class LoginForm extends Component {
   constructor(props) {
@@ -91,24 +91,24 @@ class LoginForm extends Component {
         }
         <h3>Log In</h3>
         <div className="form">
-          <form className="login-form" onSubmit={this.handleFormSubmit}>
-            <SingleInput
-              inputType="text"
-              placeholder="email"
-              name="Email"
-              controlFunc={this.handleEmailChange}
-            />
-            <SingleInput
-              inputType="password"
-              name="Password"
-              controlFunc={this.handlePwdChange}
-            />
-            <button type="submit">login</button>
+          <Form onSubmit={this.handleFormSubmit}>
+            <Form.Group controlId="formBasicEmail">
+              <Form.Label>Email address</Form.Label>
+              <Form.Control type="email" placeholder="Enter email" onChange={this.handleEmailChange} />
+            </Form.Group>
+
+            <Form.Group controlId="formBasicPassword">
+              <Form.Label>Password</Form.Label>
+              <Form.Control type="password" placeholder="Password" onChange={this.handlePwdChange} />
+            </Form.Group>
+            <Button variant="primary" type="submit">
+      Submit
+            </Button>
             <p className="message">
 Not registered?
               <Link to="/registerUser"> Create an account</Link>
             </p>
-          </form>
+          </Form>
         </div>
       </div>
     );
